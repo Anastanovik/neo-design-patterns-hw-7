@@ -6,7 +6,7 @@ export class Section implements DocNode {
     private title: string,
     private renderer: DocRenderer,
     private children: DocNode[] = [],
-    private level: number = 1
+    private level: number = 1,
   ) {}
 
   add(child: DocNode): void {
@@ -14,6 +14,10 @@ export class Section implements DocNode {
   }
 
   render(): string {
-    // TODO: Implement the render method
+    const header = this.renderer.renderHeader(this.level, this.title);
+
+    const content = this.children.map((child) => child.render()).join("\n");
+
+    return `${header}\n${content}`;
   }
 }
